@@ -31,3 +31,15 @@ FrontEnd
 FUTURE thoughts
 1. make it in React Native for mobile
 2. organize meetups for events to help an area ... like a local cleanup etc.
+
+   CREATE TABLE links (
+            id SERIAL PRIMARY KEY,
+            link VARCHAR(2000),
+            linkname VARCHAR(255),
+            UNIQUE (link)
+        );
+        CREATE TABLE linkedlocations (
+            id SERIAL PRIMARY KEY,
+            "linkId" INTEGER REFERENCES links(id),
+            "locationId" INTEGER REFERENCES locations(id)
+        );

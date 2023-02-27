@@ -27,15 +27,19 @@ const {
   getFullRoleByUserId,
 } = require('./userRoles');
 
+const { createLocation } = require('./locations');
+
 async function dropTables() {
   try {
     console.log('Dropping All Tables!..');
 
     await client.query(`
+  
+      DROP TABLE IF EXISTS locations;
       DROP TABLE IF EXISTS userRoles;
       DROP TABLE IF EXISTS roles;
-        DROP TABLE IF EXISTS users;
-        `);
+      DROP TABLE IF EXISTS users;
+     `);
 
     console.log('All Tables Dropped!..');
   } catch (error) {
@@ -73,6 +77,13 @@ async function createTables() {
           id SERIAL PRIMARY KEY,
           "userId" INTEGER REFERENCES users(id),
           "roleId" INTEGER REFERENCES roles(id)
+        );
+
+        CREATE TABLE locations (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255),
+            geolocation POINT NOT NULL,
+            state VARCHAR(255)
         );
         `);
 
@@ -156,6 +167,30 @@ async function createFakeUserRoles() {
     console.log('Finished creating user roles!');
   } catch (error) {
     console.error('Error creating user roles!');
+    throw error;
+  }
+}
+
+async function createFakeLocation() {
+  try {
+    const fakeLocation = [
+      {
+        name: 'Longs Peak trailhead',
+        geolocation: '-74.07867091 4.66455174',
+        state: 'colorado',
+      },
+      {
+        name: 'Hall Ranch TrailHead Bitterbrush',
+        geolocation: '-74.07867091 4.66455174',
+        state: 'colorado',
+      },
+    ];
+    const fakeLocations = await Promise.all(fakeLocation.map(createLocation));
+    console.log('locations created:');
+    console.log(fakeLocations);
+    console.log('Finished creating locations!');
+  } catch (error) {
+    console.error('Error creating locations!');
     throw error;
   }
 }
@@ -287,6 +322,7 @@ async function rebuildDB() {
     await createFakeUsers();
     await createFakeRoles();
     await createFakeUserRoles();
+    await createFakeLocation();
     await testDB();
   } catch (error) {
     console.log('Error during rebuildDB');
