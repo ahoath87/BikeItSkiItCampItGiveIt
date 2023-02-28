@@ -27,7 +27,7 @@ const {
   getFullRoleByUserId,
 } = require('./userRoles');
 
-const { createLocation } = require('./locations');
+const { createLocation, getAllLocations } = require('./locations');
 
 async function dropTables() {
   try {
@@ -177,7 +177,7 @@ async function createFakeLocation() {
         geolocation: '-74.07867091 4.66455174',
       },
       {
-        geolocation: '-74.07867091 4.66455174',
+        geolocation: '-7.27294921875 52.81604319154934',
       },
     ];
     const fakeLocations = await Promise.all(fakeLocation.map(createLocation));
@@ -221,65 +221,11 @@ async function testDB() {
     // );
     // console.log('testing updateUsers', updatedUser);
 
-    //*******************gearPosts TESTS******************//
+    //*******************locations TESTS******************//
 
-    //   console.log('starting to test gearPosts');
-    //   const allGearPosts = await getAllGearPosts();
-    //   console.log('testing getAllGearPosts', allGearPosts);
-
-    //   const gearPostsByUser = await getGearPostByUser(2);
-    //   console.log('testing getGearPostsByUser', gearPostsByUser);
-
-    //   const gearPostById = await getGearPostById(1);
-    //   console.log('testing getGearPostById', gearPostById);
-
-    //   const gearPostsByDate = await getGearPostByDate('2023-02-05');
-    //   console.log('testing getGearPostsByDate', gearPostsByDate);
-
-    //   const gearPostByName = await getGearPostsByName('Old Hoodie');
-    //   console.log('testing getGearPostByName', gearPostByName);
-
-    //   const gearPostByActive = await getGearPostByActive(true);
-    //   console.log('testing getGearPostByActive', gearPostByActive);
-
-    //   const gearByUser = await getGearPostByUser(1);
-    //   console.log('testing getGearPostByUSer', gearByUser);
-
-    // const updatedGearPost = await updateGearPosts(allGearPosts[0].id, {
-    //   title: 'Old shoes',
-    //   location: 'longmont',
-    //   description: 'running shoes',
-    //   price: 10.0,
-    //   condition: 'new',
-    //   category: 'shoes',
-    //   size: '8',
-    //   updatedat: '2023-02-20',
-    //   active: false,
-    // });
-    // console.log('testing update gear post at index 0', updatedGearPost);
-
-    //******************* MESSAGES TESTS******************//
-    //   const allMessages = await getAllMessages();
-    //   console.log('testing getAllMessages', allMessages);
-
-    //   const messageById = await getMessageById(2);
-    //   console.log('testing getMessageById', messageById);
-
-    //   const messageByPostId = await getMessageByPostId(1);
-    //   console.log('testing getMessageByPostId', messageByPostId);
-
-    //   const messageByCreatorId = await getMessageByCreatorId(1);
-    //   console.log('testing getMessageByCreatorId', messageByCreatorId);
-
-    //   const messageByActive = await getMessageByActive(true);
-    //   console.log('testing getMessageByActive', messageByActive);
-
-    //   const attachMessageToGear = await attachMessageToGearPost(allGearPosts);
-    //   console.log('testing attach message to gear post:', attachMessageToGear);
-    //   console.log(
-    //     'these are all the gear posts w messages attached',
-    //     attachMessageToGear[0]
-    //   );
+    console.log('starting to test locations');
+    const allLocations = await getAllLocations();
+    console.log('testing getAllLocations', allLocations);
 
     //******************* ROLES TESTS******************//
     const allRoles = await getAllRoles();
