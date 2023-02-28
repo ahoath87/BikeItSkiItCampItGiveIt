@@ -1,19 +1,20 @@
 const client = require('./client');
 
-async function createLocation({ name, geolocation, state }) {
+async function createLocation({ geolocation }) {
+  console.log('this is geolocation:', geolocation);
   console.log('starting to createLocation');
   try {
     const {
       rows: [location],
     } = await client.query(
-      `     SET g = POINT($2)
-            INSERT INTO locations(name, geolocation, state)
-            VALUES ($1, $2, $3)
+      `     
+            INSERT INTO locations( geolocation)
+            VALUES ( ST_PointFromText('POINT(${geolocation})', 4326))
             RETURNING *;
-            `,
-      [name, geolocation, state]
+            `
     );
     console.log('first create location ', location);
+
     return location;
   } catch (error) {
     console.error('this is error in createlocations', error);

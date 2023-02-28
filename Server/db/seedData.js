@@ -81,9 +81,8 @@ async function createTables() {
 
         CREATE TABLE locations (
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            geolocation POINT NOT NULL,
-            state VARCHAR(255)
+            geolocation GEOMETRY
+            
         );
         `);
 
@@ -175,14 +174,10 @@ async function createFakeLocation() {
   try {
     const fakeLocation = [
       {
-        name: 'Longs Peak trailhead',
         geolocation: '-74.07867091 4.66455174',
-        state: 'colorado',
       },
       {
-        name: 'Hall Ranch TrailHead Bitterbrush',
         geolocation: '-74.07867091 4.66455174',
-        state: 'colorado',
       },
     ];
     const fakeLocations = await Promise.all(fakeLocation.map(createLocation));
