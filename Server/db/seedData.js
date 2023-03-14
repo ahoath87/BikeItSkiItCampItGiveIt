@@ -29,12 +29,13 @@ const {
 
 const { createLocation, getAllLocations } = require('./locations');
 
+const { createResources } = require('./resources');
 async function dropTables() {
   try {
     console.log('Dropping All Tables!..');
 
     await client.query(`
-  
+      DROP Table IF EXISTS resources;
       DROP TABLE IF EXISTS locations;
       DROP TABLE IF EXISTS userRoles;
       DROP TABLE IF EXISTS roles;
@@ -84,6 +85,13 @@ async function createTables() {
             geolocation GEOMETRY
             
         );
+
+        CREATE TABLE resources (
+          id SERIAL PRIMARY KEY,
+          website VARCHAR(255),
+          description VARCHAR(255),
+          "locationId" INTEGER REFERENCES locations(id)
+        )
         `);
 
     console.log('All tables created!');
@@ -190,6 +198,30 @@ async function createFakeLocation() {
   }
 }
 
+async function createFakeResources() {
+  try {
+    const fakeResource = [
+      {
+        website: 'www.trailfix.org',
+        description: 'A sign up for weekend cleanups on hall ranch trail',
+        locationId: 1,
+      },
+      {
+        webiste: 'www.moneytotreesatcamp.com',
+        description: 'Donate to manage beetle kill tress in area',
+        locationId: 2,
+      },
+    ];
+    const fakeResources = await Promise.all(fakeResource.map(createResources));
+    console.log('resources created:');
+    console.log(fakeResources);
+    console.log('Finished creating resources!');
+  } catch (error) {
+    console.error('Error creating resources!');
+    throw error;
+  }
+}
+
 async function testDB() {
   try {
     console.log('testing database!');
@@ -264,6 +296,7 @@ async function rebuildDB() {
     await createFakeRoles();
     await createFakeUserRoles();
     await createFakeLocation();
+    await createFakeResources();
     await testDB();
   } catch (error) {
     console.log('Error during rebuildDB');
