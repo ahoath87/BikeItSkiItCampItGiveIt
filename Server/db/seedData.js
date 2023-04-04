@@ -185,7 +185,7 @@ async function createFakeLocation() {
         geolocation: '-74.07867091 4.66455174',
       },
       {
-        geolocation: '-7.27294921875 52.81604319154934',
+        geolocation: '-105.308847 40.221485',
       },
     ];
     const fakeLocations = await Promise.all(fakeLocation.map(createLocation));
@@ -228,20 +228,20 @@ async function testDB() {
 
     // *******************USER TESTS******************//
 
-    const userByUsername = await getUserByUsername('ashley1');
-    console.log('testing getUserByUsername', userByUsername);
+    // const userByUsername = await getUserByUsername('ashley1');
+    // console.log('testing getUserByUsername', userByUsername);
 
-    const allUsers = await getAllUsers();
-    console.log('These are all the users!', allUsers);
+    // const allUsers = await getAllUsers();
+    // console.log('These are all the users!', allUsers);
 
-    const userById = await getUserById(1);
-    console.log('testing getUserById', userById);
+    // const userById = await getUserById(1);
+    // console.log('testing getUserById', userById);
 
-    const userByUser = await getUser('ashley1', 'ashley123');
-    console.log('testing getUser', userByUser);
+    // const userByUser = await getUser('ashley1', 'ashley123');
+    // console.log('testing getUser', userByUser);
 
-    const userByEmail = await getUserByEmail('ashley@gmail.com');
-    console.log('testing getUserByemail', userByEmail);
+    // const userByEmail = await getUserByEmail('ashley@gmail.com');
+    // console.log('testing getUserByemail', userByEmail);
 
     // const updatedUser = await updateUser(
     //   1,
@@ -260,26 +260,26 @@ async function testDB() {
     console.log('testing getAllLocations', allLocations);
 
     //******************* ROLES TESTS******************//
-    const allRoles = await getAllRoles();
-    console.log('testing getAllRoles', allRoles);
+    // const allRoles = await getAllRoles();
+    // console.log('testing getAllRoles', allRoles);
 
-    const roleById = await getRoleById(1);
-    console.log('testing getRoleById', roleById);
+    // const roleById = await getRoleById(1);
+    // console.log('testing getRoleById', roleById);
 
-    const roleByCode = await getRoleByCode(2);
-    console.log('testing getRoleByCode', roleByCode);
+    // const roleByCode = await getRoleByCode(2);
+    // console.log('testing getRoleByCode', roleByCode);
 
-    const roleByName = await getRoleByName('admin');
-    console.log('testing getRoleByName', roleByName);
+    // const roleByName = await getRoleByName('admin');
+    // console.log('testing getRoleByName', roleByName);
 
-    const roleByActive = await getRoleByActive(true);
-    console.log('testing getRoleByActive', roleByActive);
+    // const roleByActive = await getRoleByActive(true);
+    // console.log('testing getRoleByActive', roleByActive);
 
-    const userByRoleId = await getUserByRoleId(2);
-    console.log('testing getUserByRoleId', userByRoleId);
+    // const userByRoleId = await getUserByRoleId(2);
+    // console.log('testing getUserByRoleId', userByRoleId);
 
-    const roleByUserId = await getFullRoleByUserId(1);
-    console.log('testing getRoleByUSERId', roleByUserId);
+    // const roleByUserId = await getFullRoleByUserId(1);
+    // console.log('testing getRoleByUSERId', roleByUserId);
 
     console.log('finished testing database!');
   } catch (error) {

@@ -43,3 +43,5 @@ FUTURE thoughts
             "linkId" INTEGER REFERENCES links(id),
             "locationId" INTEGER REFERENCES locations(id)
         );
+
+        VALUES ($1, ST_PointFromText('POINT($2)'), $3)
