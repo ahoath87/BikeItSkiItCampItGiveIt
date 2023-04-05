@@ -163,7 +163,7 @@ function Search({ panTo }) {
     setValue(address, false);
     clearSuggestions();
     try {
-      const onPlacesChanged = () => setPlaces(Places);
+      // const onPlacesChanged = () => setPlaces(Places);
       console.log('this is address', address);
       const results = await getGeocode({ address });
       let { lat, lng } = await getLatLng(results[0]);
