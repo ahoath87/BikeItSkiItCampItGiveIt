@@ -83,7 +83,6 @@ async function createTables() {
         CREATE TABLE locations (
             id SERIAL PRIMARY KEY,
             geolocation GEOMETRY
-            
         );
 
         CREATE TABLE resources (
