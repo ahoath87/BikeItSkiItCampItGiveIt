@@ -40,7 +40,10 @@ const Places = () => {
 //******************** Map Function ******************
 
 function Map() {
-  const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
+  const center = useMemo(
+    () => ({ lat: 40.015725874467755, lng: -105.25984995283301 }),
+    []
+  );
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
 
@@ -86,12 +89,12 @@ function Map() {
               onClick={() => {
                 setSelected(marker);
               }}
-              icon={{
-                url: `/bear.svg`,
-                origin: new window.google.maps.Point(0, 0),
-                anchor: new window.google.maps.Point(15, 15),
-                scaledSize: new window.google.maps.Size(30, 30),
-              }}
+              // icon={{
+              //   // url: `/bear.svg`,
+              //   origin: new window.google.maps.Point(0, 0),
+              //   anchor: new window.google.maps.Point(15, 15),
+              //   scaledSize: new window.google.maps.Size(30, 30),
+              // }}
             />
           ))}
 
@@ -103,13 +106,8 @@ function Map() {
               }}
             >
               <div>
-                <h2>
-                  <span role='img' aria-label='bear'>
-                    🐻
-                  </span>{' '}
-                  Alert
-                </h2>
-                <p>Spotted </p>
+                <h2>Location Name</h2>
+                <p>Resources </p>
               </div>
             </InfoWindow>
           ) : null}
@@ -155,35 +153,58 @@ function Search({ panTo }) {
     },
   });
 
-  // const handleInput = (e) => {
-  //   setValue(e.target.value);
-  // };
+  //   const onPlacesChanged = async (address) => {
+  //     setValue(address);
+  //     setPlaces(value);
 
-  const handleSelect = async (address) => {
-    setValue(address, false);
-    clearSuggestions();
-    try {
-      const onPlacesChanged = () => setPlaces(Places);
-      console.log('this is address', address);
-      const results = await getGeocode({ address });
-      let { lat, lng } = await getLatLng(results[0]);
-      panTo({ lat, lng });
-    } catch (error) {
-      console.log('😱 Error: ', error);
-    }
-  };
+  //     clearSuggestions();
+  //     try {
+  //       console.log('this is address', address);
+  //       const results = await getGeocode({ address });
+  //       let { lat, lng } = await getLatLng(results[0]);
+  //       panTo({ lat, lng });
+  //     } catch (error) {
+  //       console.log('😱 Error: ', error);
+  //     }
+  //   };
 
-  return (
-    <StandaloneSearchBox onSelect={handleSelect}>
-      <input
-        type='text'
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        disabled={!ready}
-        placeholder='Search locations here'
-      ></input>
-    </StandaloneSearchBox>
-  );
+  //   // const handleInput = (e) => {
+  //   //   setValue(e.target.value);
+  //   // };
+
+  //   // const handleSelect = async (address) => {
+  //   //   setValue(address, false);
+  //   //   clearSuggestions();
+  //   //   try {
+  //   //     console.log('this is address', address);
+  //   //     const results = await getGeocode({ address });
+  //   //     let { lat, lng } = await getLatLng(results[0]);
+  //   //     panTo({ lat, lng });
+  //   //   } catch (error) {
+  //   //     console.log('😱 Error: ', error);
+  //   //   }
+  //   // };
+  //   const handleSelect = async (e) => {
+  //     setValue(e.target.value);
+  //     console.log('this is value:', value);
+  //     console.log('this is e', e);
+  //     try {
+  //     } catch (error) {
+  //       console.log('error message:', error);
+  //     }
+  //   };
+
+  //   return (
+  //     <StandaloneSearchBox onPlacesChanged={onPlacesChanged}>
+  //       <input
+  //         type='text'
+  //         value={value}
+  //         onChange={(e) => setValue(e.target.value)}
+  //         disabled={!ready}
+  //         placeholder='Search locations here'
+  //       ></input>
+  //     </StandaloneSearchBox>
+  //   );
 }
 
 export default Places;
