@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Places, Home } from './Components/Index';
+import { Places } from './Components/Index';
 
 function App() {
   return (
