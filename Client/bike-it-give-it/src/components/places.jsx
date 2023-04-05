@@ -45,6 +45,7 @@ function Map() {
     []
   );
   const [selected, setSelected] = useState(null);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [adminMarkers, setAdminMarkers] = useState([]);
 
@@ -117,6 +118,41 @@ function Map() {
             >
               <div>
                 <h2>Location Name</h2>
+                <p>Resources </p>
+              </div>
+            </InfoWindow>
+          ) : null}
+
+          {adminMarkers.map((adminMarker) => (
+            <MarkerF
+              key={adminMarker.id}
+              position={
+                console.log(
+                  'this is adminMarker.geolocation',
+                  adminMarker.geolocation
+                ) && adminMarker.geolocation
+              }
+              onClick={() => {
+                setSelectedAdmin(adminMarker.geolocation);
+              }}
+              // icon={{
+              //   // url: `/bear.svg`,
+              //   origin: new window.google.maps.Point(0, 0),
+              //   anchor: new window.google.maps.Point(15, 15),
+              //   scaledSize: new window.google.maps.Size(30, 30),
+              // }}
+            />
+          ))}
+
+          {selected ? (
+            <InfoWindow
+              position={selected}
+              onCloseClick={() => {
+                setSelectedAdmin(null);
+              }}
+            >
+              <div>
+                <h2>AdminLocation</h2>
                 <p>Resources </p>
               </div>
             </InfoWindow>
