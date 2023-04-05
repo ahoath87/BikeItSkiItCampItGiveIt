@@ -1,16 +1,14 @@
-import { useMemo, useState, useCallback, useRef } from 'react';
+import { useMemo, useState, useCallback, useRef, useEffect } from 'react';
+import { fetchAllLocations } from '../api/map';
 import {
   GoogleMap,
   useLoadScript,
-  StandaloneSearchBox,
+  // StandaloneSearchBox,
   MarkerF,
   InfoWindow,
 } from '@react-google-maps/api';
 
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
+// import usePlacesAutocomplete from 'use-places-autocomplete'; // getLatLng, // getGeocode,
 
 //***************** Global Constants ****************
 
@@ -28,6 +26,8 @@ const options = {
 //******************** Places Component **************
 
 const Places = () => {
+  // const [libraries] = useState(['places']);
+  console.log('this is libraries', libraries);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: key,
     libraries,
@@ -46,6 +46,16 @@ function Map() {
   );
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
+  const [adminMarkers, setAdminMarkers] = useState([]);
+
+  useEffect(() => {
+    const fetchedLocations = async () => {
+      const allLocations = await fetchAllLocations();
+      setAdminMarkers(allLocations);
+    };
+    fetchedLocations();
+  }, []);
+  console.log('this is admin Markers', adminMarkers);
 
   const onMapClick = useCallback((e) => {
     setMarkers((current) => [
@@ -71,7 +81,7 @@ function Map() {
     <>
       <div className='places-container'>
         <Locate panTo={panTo} />
-        <Search panTo={panTo} />
+        {/* <Search panTo={panTo} />  */}
         {/* <PlacesAutocomplete setSelected={setSelected} /> */}
         <GoogleMap
           id='map'
@@ -138,73 +148,73 @@ function Locate({ panTo }) {
   );
 }
 
-function Search({ panTo }) {
-  const [places, setPlaces] = useState([]);
-  const {
-    ready,
-    value,
-    // suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => 43.6532, lng: () => -79.3832 },
-      radius: 100 * 1000,
-    },
-  });
+// function Search({ panTo }) {
+//   const [places, setPlaces] = useState([]);
+//   const {
+//     ready,
+//     value,
+//     // suggestions: { status, data },
+//     setValue,
+//     clearSuggestions,
+//   } = usePlacesAutocomplete({
+//     requestOptions: {
+//       location: { lat: () => 43.6532, lng: () => -79.3832 },
+//       radius: 100 * 1000,
+//     },
+//   });
 
-  //   const onPlacesChanged = async (address) => {
-  //     setValue(address);
-  //     setPlaces(value);
+//   const onPlacesChanged = async (address) => {
+//     setValue(address);
+//     setPlaces(value);
 
-  //     clearSuggestions();
-  //     try {
-  //       console.log('this is address', address);
-  //       const results = await getGeocode({ address });
-  //       let { lat, lng } = await getLatLng(results[0]);
-  //       panTo({ lat, lng });
-  //     } catch (error) {
-  //       console.log('😱 Error: ', error);
-  //     }
-  //   };
+//     clearSuggestions();
+//     try {
+//       console.log('this is address', address);
+//       const results = await getGeocode({ address });
+//       let { lat, lng } = await getLatLng(results[0]);
+//       panTo({ lat, lng });
+//     } catch (error) {
+//       console.log('😱 Error: ', error);
+//     }
+//   };
 
-  //   // const handleInput = (e) => {
-  //   //   setValue(e.target.value);
-  //   // };
+//   // const handleInput = (e) => {
+//   //   setValue(e.target.value);
+//   // };
 
-  //   // const handleSelect = async (address) => {
-  //   //   setValue(address, false);
-  //   //   clearSuggestions();
-  //   //   try {
-  //   //     console.log('this is address', address);
-  //   //     const results = await getGeocode({ address });
-  //   //     let { lat, lng } = await getLatLng(results[0]);
-  //   //     panTo({ lat, lng });
-  //   //   } catch (error) {
-  //   //     console.log('😱 Error: ', error);
-  //   //   }
-  //   // };
-  //   const handleSelect = async (e) => {
-  //     setValue(e.target.value);
-  //     console.log('this is value:', value);
-  //     console.log('this is e', e);
-  //     try {
-  //     } catch (error) {
-  //       console.log('error message:', error);
-  //     }
-  //   };
+//   // const handleSelect = async (address) => {
+//   //   setValue(address, false);
+//   //   clearSuggestions();
+//   //   try {
+//   //     console.log('this is address', address);
+//   //     const results = await getGeocode({ address });
+//   //     let { lat, lng } = await getLatLng(results[0]);
+//   //     panTo({ lat, lng });
+//   //   } catch (error) {
+//   //     console.log('😱 Error: ', error);
+//   //   }
+//   // };
+//   const handleSelect = async (e) => {
+//     setValue(e.target.value);
+//     console.log('this is value:', value);
+//     console.log('this is e', e);
+//     try {
+//     } catch (error) {
+//       console.log('error message:', error);
+//     }
+//   };
 
-  //   return (
-  //     <StandaloneSearchBox onPlacesChanged={onPlacesChanged}>
-  //       <input
-  //         type='text'
-  //         value={value}
-  //         onChange={(e) => setValue(e.target.value)}
-  //         disabled={!ready}
-  //         placeholder='Search locations here'
-  //       ></input>
-  //     </StandaloneSearchBox>
-  //   );
-}
+//   return (
+//     <StandaloneSearchBox onPlacesChanged={onPlacesChanged}>
+//       <input
+//         type='text'
+//         value={value}
+//         onChange={(e) => setValue(e.target.value)}
+//         disabled={!ready}
+//         placeholder='Search locations here'
+//       ></input>
+//     </StandaloneSearchBox>
+//   );
+// }
 
 export default Places;
