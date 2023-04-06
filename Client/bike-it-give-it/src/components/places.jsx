@@ -38,8 +38,9 @@ const Places = () => {
 };
 
 //******************** Map Function ******************
+// useMemo performs the calculation once and then use it once when it rerenders
 
-function Map() {
+const Map = () => {
   const center = useMemo(
     () => ({ lat: 40.015725874467755, lng: -105.25984995283301 }),
     []
@@ -56,7 +57,7 @@ function Map() {
     };
     fetchedLocations();
   }, []);
-  console.log('this is admin Markers', adminMarkers);
+  console.log('this is admin Markers line 59', adminMarkers);
 
   const onMapClick = useCallback((e) => {
     setMarkers((current) => [
@@ -69,6 +70,7 @@ function Map() {
   }, []);
 
   const mapRef = useRef();
+
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
@@ -108,7 +110,6 @@ function Map() {
               // }}
             />
           ))}
-
           {selected ? (
             <InfoWindow
               position={{ lat: selected.lat, lng: selected.lng }}
@@ -121,32 +122,27 @@ function Map() {
                 <p>Resources </p>
               </div>
             </InfoWindow>
-          ) : null}
-
+          ) : null}{' '}
           {adminMarkers.map((adminMarker) => (
             <MarkerF
               key={adminMarker.id}
               position={
                 console.log(
-                  'this is adminMarker.geolocation',
-                  adminMarker.geolocation
-                ) && adminMarker.geolocation
+                  'this is adminMarker.st_astext',
+                  adminMarker.st_astext
+                ) && adminMarker.st_astext
               }
               onClick={() => {
-                setSelectedAdmin(adminMarker.geolocation);
+                setSelectedAdmin(adminMarker.st_astext);
               }}
-              // icon={{
-              //   // url: `/bear.svg`,
-              //   origin: new window.google.maps.Point(0, 0),
-              //   anchor: new window.google.maps.Point(15, 15),
-              //   scaledSize: new window.google.maps.Size(30, 30),
-              // }}
             />
           ))}
-
-          {selected ? (
+          {selectedAdmin ? (
             <InfoWindow
-              position={selected}
+              position={
+                console.log('this is selected admin', selectedAdmin) &&
+                selectedAdmin
+              }
               onCloseClick={() => {
                 setSelectedAdmin(null);
               }}
@@ -161,7 +157,7 @@ function Map() {
       </div>
     </>
   );
-}
+};
 
 function Locate({ panTo }) {
   return (
