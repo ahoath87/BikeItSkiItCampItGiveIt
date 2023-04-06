@@ -26,7 +26,7 @@ async function createLocation({ geolocation }) {
 async function getAllLocations() {
   try {
     const { rows: location } = await client.query(`
-      SELECT *
+      SELECT ST_AsText(geolocation)
       FROM locations
       `);
     console.log('These are our all our locationss :', location);
