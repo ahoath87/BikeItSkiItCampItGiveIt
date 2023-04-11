@@ -6,12 +6,16 @@ import { Places } from './Components/Index';
 function App() {
   return (
     <div className='App'>
-      {/* <LoginHere></LoginHere>
+      <div>
+        {/* <LoginHere></LoginHere>
       <Register></Register> */}
-      <Routes>
-        {/* <Route path='/home' element={<Home />}></Route> */}
-        <Route path='/map' element={<Places />}></Route>
-      </Routes>
+
+        <Routes>
+          <Route path='/' element={<div>HOME PAGE</div>}></Route>
+          {/* <Route path='/home' element={<Home />}></Route> */}
+          <Route path='/map' element={<Places />}></Route>
+        </Routes>
+      </div>
     </div>
   );
 }
