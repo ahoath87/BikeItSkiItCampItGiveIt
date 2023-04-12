@@ -1,0 +1,15 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* #root{
+    height: 100vh;
+} */
+
+/* must set sizing of map containter */
+
+.leaflet-container{
+ height: 100vh;
+}
