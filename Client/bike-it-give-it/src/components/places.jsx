@@ -75,15 +75,15 @@ const Map = () => {
     mapRef.current = map;
   }, []);
 
-  const panTo = useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
-  }, []);
+  // const panTo = useCallback(({ lat, lng }) => {
+  //   mapRef.current.panTo({ lat, lng });
+  //   mapRef.current.setZoom(14);
+  // }, []);
 
   return (
     <>
       <div className='places-container'>
-        <Locate panTo={panTo} />
+        {/* <Locate panTo={panTo} /> */}
         {/* <Search panTo={panTo} />  */}
         {/* <PlacesAutocomplete setSelected={setSelected} /> */}
         <GoogleMap
@@ -159,26 +159,26 @@ const Map = () => {
   );
 };
 
-function Locate({ panTo }) {
-  return (
-    <button
-      className='locate'
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          () => null
-        );
-      }}
-    >
-      <img src='/compass.svg' alt='compass' />
-    </button>
-  );
-}
+// function Locate({ panTo }) {
+//   return (
+//     <button
+//       className='locate'
+//       onClick={() => {
+//         navigator.geolocation.getCurrentPosition(
+//           (position) => {
+//             panTo({
+//               lat: position.coords.latitude,
+//               lng: position.coords.longitude,
+//             });
+//           },
+//           () => null
+//         );
+//       }}
+//     >
+//       <img src='/compass.svg' alt='compass' />
+//     </button>
+//   );
+// }
 
 // function Search({ panTo }) {
 //   const [places, setPlaces] = useState([]);
